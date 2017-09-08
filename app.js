@@ -14,19 +14,19 @@ class Scanner {
             width: 50,
             height: 50,
             radius: 20,
-            fill: isDevice?'#00D200':'#00D2FF',
+            fill: isDevice?'blue':'yellow',
             stroke: 'black',
             strokeWidth: 4,
-            draggable: true
+            draggable: isDevice
         });
 
         this.text = new Konva.Text({
             x: x - 20,
             y: y + 25,
-            text: `x:${x}, y:${y}`,
+            text: `Px:${x}, Py:${y}`,
             fontSize: 18,
             fontFamily: 'Calibri',
-            fill: 'green'
+            fill: 'blue'
         });
 
         this.db = new Konva.Text({
@@ -59,7 +59,7 @@ class Scanner {
         this.box.on('dragmove', function(evt) {
             self.x = evt.target.attrs.x 
             self.y = evt.target.attrs.y
-            self.text.text(`x:${evt.target.attrs.x}, y:${evt.target.attrs.y}`)
+            self.text.text(`Mx:${evt.target.attrs.x}, My:${evt.target.attrs.y}`)
             self.text.x(evt.target.attrs.x - 20)
             self.text.y(evt.target.attrs.y + 25)
 

@@ -30,20 +30,35 @@
 </head>
 <body>
     <div id="container"></div>
+    <div style="height:600px; margin-left: 20px">
+    <span>Các điểm cố định màu vàng có tọa độ thực tế (Px, Py) màu xanh bên dưới, và khoảng cách đến điểm di chuyển (Mx, My) tính bằng DB, màu đỏ bên trên, với lỗi tính bằng % là ngẫu nhiên <br/>
+    Điểm di chuyển màu xanh, có tọa độ thực tế (Mx, My) bên dưới, bên trên có thể hiển thị dựa vào hàm tính toán cung cấp trong ô text <br/>
+    Có thể add bao nhiêu điểm calibrate tùy ý, di chuyển điểm di động, tới vị trí cần thêm, thì nhấn ADD <br/>
+    
+    Hàm tính toán calculate sẽ có 3 tham số, là currentDbs, khoảng cách hiện tại giữa điểm di chuyển và các điểm cố định, với tổng cộng 9 điểm có index từ 0 đến 8, giá trị db, truy xuất bằng cách currentDbs[index] <br/>
+
+    calibratedDbs là các điểm calibrate đã thêm, chứa tọa độ điểm di động lúc calibrate và giá trị khoảng cách tới các điểm di chuyển, tính bằng db, truy xuất calibratedDbs[index].x, calibratedDbs[index].y, calibratedDbs[index].dbs[pindx] <br/>
+
+    Yêu cầu: Căn cứ vào các tham số đầu vào `currentDbs, calibratedDbs, real`, tính tọa độ điểm di chuyển (Mx, My) sao cho giá trị tuyệt đối error = (Mx-real.x)/real.x + (My-real.y)/real.y là nhỏ nhất
+
+    </span>
     <textarea id="code">
     </textarea>
+    </div>
+    
 
 <script>
-    var editor_storage = localStorage.getItem('code1')
+    var editor_storage = localStorage.getItem('code3')
     if(!editor_storage) {
-        localStorage.setItem('code1', 
+        localStorage.setItem('code3', 
             'function calculate(currentDbs, calibratedDbs, real) {\n' +
                 '    console.log(real.x, real.y, currentDbs, calibratedDbs)\n' +
-                '    var x=real.x, y=real.y\n' +
-                '    return `X ${x}, Y ${y}`\n' +
+                '    var Mx=real.x, My=real.y //tính Mx, My ở đây\n' +
+                '    var error = (Mx-real.x)/real.x + (My-real.y)/real.y\n' +
+                '    return `X ${Mx}, Y ${My}, error ${error}`\n' +
             '}\n')
     }
-    document.getElementById('code').value = localStorage.getItem('code1')
+    document.getElementById('code').value = localStorage.getItem('code3')
     
     var editor = new Behave({        
         textarea:       document.getElementById('code'),
@@ -56,7 +71,7 @@
         autoIndent:     true
     });
     BehaveHooks.add('keydown', function(data){
-        localStorage.setItem('code1', data.editor.text);
+        localStorage.setItem('code3', data.editor.text);
     });
 </script>
 <script src="app.js"></script>
