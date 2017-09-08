@@ -39,7 +39,7 @@
         localStorage.setItem('code1', 
             'function calculate(currentDbs, calibratedDbs, real) {\n' +
                 '    console.log(real.x, real.y, currentDbs, calibratedDbs)\n' +
-                '    var x=0, y=0\n' +
+                '    var x=real.x, y=real.y\n' +
                 '    return `X ${x}, Y ${y}`\n' +
             '}\n')
     }
