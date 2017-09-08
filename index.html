@@ -34,16 +34,16 @@
     </textarea>
 
 <script>
-    var editor_storage = localStorage.getItem('code')
+    var editor_storage = localStorage.getItem('code1')
     if(!editor_storage) {
-        localStorage.setItem('code', 
+        localStorage.setItem('code1', 
             'function calculate(currentDbs, calibratedDbs, real) {\n' +
                 '    console.log(real.x, real.y, currentDbs, calibratedDbs)\n' +
                 '    var x=0, y=0\n' +
                 '    return `X ${x}, Y ${y}`\n' +
             '}\n')
     }
-    document.getElementById('code').value = localStorage.getItem('code')
+    document.getElementById('code').value = localStorage.getItem('code1')
     
     var editor = new Behave({        
         textarea:       document.getElementById('code'),
@@ -56,7 +56,7 @@
         autoIndent:     true
     });
     BehaveHooks.add('keydown', function(data){
-        localStorage.setItem('code', data.editor.text);
+        localStorage.setItem('code1', data.editor.text);
     });
 </script>
 <script src="app.js"></script>
