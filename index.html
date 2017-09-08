@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
     <script src="https://cdn.rawgit.com/konvajs/konva/1.6.5/konva.min.js"></script>
     <meta charset="utf-8">
     <title>Indoor location demo</title>
@@ -13,6 +12,7 @@
             overflow: hidden;
             background-color: #F0F0F0;
         }
+       
         textarea{
             width:600px;
             height:300px;
@@ -25,28 +25,48 @@
         textarea:focus{
             border-color:#333;
         }
+        #wrapper {
+          margin-right: 200px;
+        }
+        #content {
+          float: left;
+          width: 700px;
+          background-color: #CCF;
+        }
+        #sidebar {
+          float: right;
+          width: 600px;
+          /*margin-right: -200px;*/
+          background-color: #FFA;
+        }
+        #cleared {
+          clear: both;
+        }
     </style>
     <script src="behave.js"></script>
 </head>
 <body>
     <div id="container"></div>
-    <div style="height:600px; margin-left: 20px">
-    <ul><li>Các điểm cố định màu vàng có tọa độ thực tế (Px, Py) màu xanh bên dưới, và khoảng cách đến điểm di chuyển (Mx, My) tính bằng DB, màu đỏ bên trên, với lỗi tính bằng % là ngẫu nhiên <br/>
-    Điểm di chuyển màu xanh, có tọa độ thực tế (Mx, My) bên dưới, bên trên có thể hiển thị dựa vào hàm tính toán cung cấp trong ô text </li>
-    <li>Có thể add bao nhiêu điểm calibrate tùy ý, di chuyển điểm di động, tới vị trí cần thêm, thì nhấn ADD </li>
-    <li>
-    Hàm tính toán calculate sẽ có 3 tham số, là currentDbs, khoảng cách hiện tại giữa điểm di chuyển và các điểm cố định, với tổng cộng 9 điểm có index từ 0 đến 8, giá trị db, truy xuất bằng cách currentDbs[index] </li>
-    <li>
-    calibratedDbs là các điểm calibrate đã thêm, chứa tọa độ điểm di động lúc calibrate và giá trị khoảng cách tới các điểm di chuyển, tính bằng db, truy xuất calibratedDbs[index].x, calibratedDbs[index].y, calibratedDbs[index].dbs[pindx] </li>
-    <li>
-    <strong>Yêu cầu: </strong>Căn cứ vào các tham số đầu vào <b>currentDbs, calibratedDbs, real</b>, tính tọa độ điểm di chuyển (Mx, My) sao cho giá trị tuyệt đối <b>error = (Mx-real.x)/real.x + (My-real.y)/real.y </b>là nhỏ nhất
-    </li>
-    </ul>
-    <textarea id="code">
-    </textarea>
+    <div style="margin-left: 20px;">
+        
+        <div id="wrapper">
+          <div id="content"><textarea id="code"></textarea></div>
+          <div id="sidebar">
+            <ul><li>Các điểm cố định màu vàng có tọa độ thực tế (Px, Py) màu xanh bên dưới, và khoảng cách đến điểm di chuyển (Mx, My) tính bằng DB, màu đỏ bên trên, với lỗi tính bằng % là ngẫu nhiên <br/>
+            Điểm di chuyển màu xanh, có tọa độ thực tế (Mx, My) bên dưới, bên trên có thể hiển thị dựa vào hàm tính toán cung cấp trong ô text </li>
+            <li>Có thể add bao nhiêu điểm calibrate tùy ý, di chuyển điểm di động, tới vị trí cần thêm, thì nhấn ADD </li>
+            <li>
+            Hàm tính toán calculate sẽ có 3 tham số, là currentDbs, khoảng cách hiện tại giữa điểm di chuyển và các điểm cố định, với tổng cộng 9 điểm có index từ 0 đến 8, giá trị db, truy xuất bằng cách currentDbs[index] </li>
+            <li>
+            calibratedDbs là các điểm calibrate đã thêm, chứa tọa độ điểm di động lúc calibrate và giá trị khoảng cách tới các điểm di chuyển, tính bằng db, truy xuất calibratedDbs[index].x, calibratedDbs[index].y, calibratedDbs[index].dbs[pindx] </li>
+            <li>
+            <strong>Yêu cầu: </strong>Căn cứ vào các tham số đầu vào <b>currentDbs, calibratedDbs, real</b>, tính tọa độ điểm di chuyển (Mx, My) sao cho giá trị tuyệt đối <b>error = (Mx-real.x)/real.x + (My-real.y)/real.y </b>là nhỏ nhất
+            </li>
+            </ul>
+          </div>
+          <div id="cleared"></div>
+        </div>
     </div>
-    
-
 <script>
     var editor_storage = localStorage.getItem('code3')
     if(!editor_storage) {

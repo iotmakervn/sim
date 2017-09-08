@@ -236,12 +236,12 @@ class Room {
     constructor(no_scanner, col, layer) {
       this.scanners = []
       
-      var x = 200, y = 100, space = 200
+      var x = 200, y = 100, space = 150
       for(var i=0; i<no_scanner; i++) {
         var s = new Scanner(x, y, false, this.scannerMove, this);
         s.insert(layer)
         x += space;
-        if(x > space*col) {
+        if(x > space*(col+1)) {
             x = 200
             y += space
         }
@@ -272,7 +272,7 @@ class Room {
     }
 }
 var width = 1600;
-var height = 600;
+var height = 500;
 var stage = new Konva.Stage({
     container: 'container',
     width: width,
