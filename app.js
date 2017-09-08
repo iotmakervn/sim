@@ -6,6 +6,7 @@ class Scanner {
         this.isDevice = isDevice
         this.ref = ref
         this.dbtext = '0db'
+        this.dbval = 0
         this.error = this.roundDown(Math.random() * 10 - 5, 1) //-1 ..1
         this.box = new Konva.Circle({
             x: x,
@@ -44,6 +45,17 @@ class Scanner {
             document.body.style.cursor = 'default';
         })
         var self = this
+        // this.box.on('click', function(evt) {
+        //     if(self.error > 0) {
+        //         self.error = 0
+        //     } else {
+        //         self.error = self.roundDown(Math.random() * 10 - 5, 1)
+        //     }
+        //     self.dbtext = self.roundDown(self.dbval, 3) + 'db, ' + self.error + '%'
+        //     self.db.text(self.dbtext)
+
+        // })
+        
         this.box.on('dragmove', function(evt) {
             self.x = evt.target.attrs.x 
             self.y = evt.target.attrs.y
@@ -72,7 +84,7 @@ class Scanner {
         return (Math.floor(number * Math.pow(10, decimals)) / Math.pow(10, decimals))
     }
     update(db) {
-
+        this.dbval = db
         this.dbtext = this.roundDown(db, 3) + 'db, ' + this.error + '%'
         this.db.text(this.dbtext)
     }
@@ -250,7 +262,8 @@ class Room {
             dbs.push(db)
             self.scanners[i].update(db)
         }
-        var text = eval(document.getElementById('code').value + ';calculate(dbs, self.calibrate.getCalibratePoint())')
+        var real = {x: self.x, y: self.y}
+        var text = eval(document.getElementById('code').value + ';calculate(real, dbs, self.calibrate.getCalibratePoint())')
         self.device.setText(text)
     }
 
