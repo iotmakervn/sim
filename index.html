@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <script src="https://cdn.rawgit.com/konvajs/konva/1.6.5/konva.min.js"></script>
+    <meta charset="utf-8">
+    <title>Konva  Drag and Drop Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #F0F0F0;
+        }
+        textarea{
+            width:600px;
+            height:300px;
+            border:1px solid #999;
+            padding:10px;
+            font-family: monospace;
+            font-size:13px;
+            margin: 20px;
+        }
+        textarea:focus{
+            border-color:#333;
+        }
+    </style>
+    <script src="behave.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <textarea id="code">
+    </textarea>
+
+<script>
+    var editor_storage = localStorage.getItem('code')
+    if(!editor_storage) {
+        localStorage.setItem('code', 
+            'function calculate(currentDbs, calibratedDbs) {\n' +
+                '    return `X ${x}, Y ${y}`\n' +
+            '}\n')
+    }
+    document.getElementById('code').value = localStorage.getItem('code')
+    
+    var editor = new Behave({        
+        textarea:       document.getElementById('code'),
+        replaceTab:     true,
+        softTabs:       true,
+        tabSize:        4,
+        autoOpen:       true,
+        overwrite:      true,
+        autoStrip:      true,
+        autoIndent:     true
+    });
+    BehaveHooks.add('keydown', function(data){
+        localStorage.setItem('code', data.editor.text);
+    });
+</script>
+<script src="app.js"></script>
+</body>
+</html>
