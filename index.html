@@ -37,7 +37,7 @@
     var editor_storage = localStorage.getItem('code')
     if(!editor_storage) {
         localStorage.setItem('code', 
-            'function calculate(real, currentDbs, calibratedDbs) {\n' +
+            'function calculate(currentDbs, calibratedDbs, real) {\n' +
                 '    console.log(real.x, real.y, currentDbs, calibratedDbs)\n' +
                 '    var x=0, y=0\n' +
                 '    return `X ${x}, Y ${y}`\n' +

@@ -68,7 +68,7 @@ class Scanner {
             self.db.y(evt.target.attrs.y - 40)
 
             if(self.dragmove) {
-                self.dragmove(evt, self.ref)
+                self.dragmove(evt, self.ref, {x: evt.target.attrs.x , y: evt.target.attrs.y})
             }
         })
     }
@@ -254,7 +254,7 @@ class Room {
       this.calibrate.insert(layer)
     }
 
-    deviceMove(evt, self) {
+    deviceMove(evt, self, location) {
         var dbs = []
         for(var i=0; i<self.scanners.length; i++) {
             var dis = self.device.distanceTo(self.scanners[i].x, self.scanners[i].y)
@@ -262,8 +262,8 @@ class Room {
             dbs.push(db)
             self.scanners[i].update(db)
         }
-        var real = {x: self.x, y: self.y}
-        var text = eval(document.getElementById('code').value + ';calculate(real, dbs, self.calibrate.getCalibratePoint())')
+        var real = {x: location.x, y: location.y}
+        var text = eval(document.getElementById('code').value + ';calculate(dbs, self.calibrate.getCalibratePoint(), real)')
         self.device.setText(text)
     }
 
